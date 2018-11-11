@@ -17,7 +17,7 @@ from suds.wsse import UsernameToken, wssens, wsuns
 
 
 wspassd = ('Type',
-    'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordDigest')
+    'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText')
 wsenctype = ('EncodingType',
     'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary')
 
@@ -43,7 +43,7 @@ class UsernameDigestToken(UsernameToken):
         sha1 = hashlib.sha1(str(self.nonce) + \
                             str(self.created) + self.password)
         digest = base64.encodestring(sha1.digest())[:-1]
-        return digest
+        return self.password
 
     def xml(self):
         """
